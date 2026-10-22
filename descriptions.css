@@ -1,0 +1,8 @@
+.tariff-description{margin-top:13px;padding:11px 13px;border-radius:5px;background:#f3f7f4;color:#405c4b;font-size:12px;line-height:1.6}
+.tariff-description p{margin:0}
+.tariff-description p+p{margin-top:3px}
+.unavailable-service{flex:1;min-width:0}
+.unavailable-service .tariff-description{margin-top:7px;background:transparent;padding:0;color:var(--muted);font-size:11px}
+.unavailable-row>span{flex:1}
+#country{cursor:pointer}
+@media print{.tariff-description{background:transparent;padding:5px 0}}
