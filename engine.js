@@ -88,7 +88,9 @@ const b = (
         restPrice.price,
       tier: remainder || 30
     }
-  : null;;if(!b){missing(name,'Kein Tarif hinterlegt.');continue;}
+  : null;
+  console.log(service, weight, z, blockPrice, restPrice, b);
+  ;if(!b){missing(name,'Kein Tarif hinterlegt.');continue;}
   const fuel=up(b.price*(service==='Standard'?.154:.31));results.push({name,price:up(b.price+fuel),base:b.price,extra:fuel,zone:z,tier:b.tier,source:service==='Standard'?'StandardTarife':'ExpressPlusTarife',details:['Treibstoffzuschlag: '+(service==='Standard'?'15,4':'31')+' %','Ein Paket; Gewichtsbereich ohne widersprüchliche Aufteilung']});
  }
  return results.sort((a,b)=>(a.price??Infinity)-(b.price??Infinity));
