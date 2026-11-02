@@ -53,8 +53,36 @@ function calculate(data,{mode,country,weight,region}){
  }else for(const service of ['Standard','Plus']){
   const key='Export '+service,name=service==='Plus'?'UPS Express Plus':'UPS Standard',z=zone(data,key,country);
   if(!z){missing(name,'Keine eindeutige Länderzone hinterlegt.');continue;}
-  if(weight>=30||!(Number.isInteger(weight)||weight===.5)){missing(name,'Gewichtsaufteilung der Excel-Formel prüfen. Verlässlich übernommen für 0,5 kg oder volle kg unter 30 kg.');continue;}
-  const b=lookup(data,key,z,weight);if(!b){missing(name,'Kein Tarif hinterlegt.');continue;}
+  if (
+  !(Number.isInteger(weight) || weight === 0.5)
+) {
+  missing(
+    name,
+    "Nur ganze Kilogramm oder 0,5 kg möglich."
+  );
+  continue;
+}
+  const fullBlocks = Math.floor(weight / 30);
+const remainder = weight % 30;
+
+const blockPrice = lookup(data, key, z, 30);
+
+const restPrice =
+  remainder > 0
+    ? lookup(data, key, z, remainder)
+    : { price: 0, tier: 30 };
+
+const b = (
+  blockPrice &&
+  restPrice
+)
+  ? {
+      price:
+        fullBlocks * blockPrice.price +
+        restPrice.price,
+      tier: remainder || 30
+    }
+  : null;;if(!b){missing(name,'Kein Tarif hinterlegt.');continue;}
   const fuel=up(b.price*(service==='Standard'?.154:.31));results.push({name,price:up(b.price+fuel),base:b.price,extra:fuel,zone:z,tier:b.tier,source:service==='Standard'?'StandardTarife':'ExpressPlusTarife',details:['Treibstoffzuschlag: '+(service==='Standard'?'15,4':'31')+' %','Ein Paket; Gewichtsbereich ohne widersprüchliche Aufteilung']});
  }
  return results.sort((a,b)=>(a.price??Infinity)-(b.price??Infinity));
