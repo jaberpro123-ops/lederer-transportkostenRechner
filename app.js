@@ -3,7 +3,7 @@ const mode=()=>document.querySelector('input[name=mode]:checked').value;
 function tariffDescription(name){
  const exp=mode()==='Export';
  const descriptions={
-  'Spedition Schmidt': ['Lieferzeit in der Excel-Datei nicht angegeben.', 'Über '+(exp?'3.000':'5.000')+' kg: aktuellen Tagespreis anfragen.'],
+  'Spedition Schmidt': ['Über '+(exp?'3.000':'5.000')+' kg: aktuellen Tagespreis anfragen.'],
   'UPS Standard': ['Maximal 70 kg und nur 1 Packstück.', '2–3 Werktage Europa.'],
   'UPS Standard Single': ['Maximal 70 kg und nur 1 Packstück.', '2–3 Werktage Europa.'],
   'UPS Standard Multi': ['Mehr als 1 Packstück.', '2–3 Werktage EU.'],
