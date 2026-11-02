@@ -66,6 +66,12 @@ function calculate(data,{mode,country,weight,region}){
 const remainder = weight % 30;
 
 const blockPrice = lookup(data, key, z, 30);
+  console.log(
+  "TEST",
+  service,
+  weight,
+  blockPrice
+);
 
 const restPrice =
   remainder > 0
